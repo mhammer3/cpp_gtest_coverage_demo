@@ -64,7 +64,7 @@ TEST_F(TestHandlerAdd, SingleMsg_Success) {
 
 	// this is the callback that will be called by the handler to read the next message, it will return messages from the msgSequence vector until it is exhausted, after which it will return a NO_MSG status to indicate there are no more messages to process.
     g_callback_readNextMessage = [seq = msgSequence, index = 0]() mutable {
-        if (index < seq.size()) {
+        if (static_cast<size_t>(index) < seq.size()) {
             return seq[index++];
         }
         return Message_t{ 0, nullptr, NO_MSG }; // no more messages after the sequence
@@ -97,7 +97,7 @@ TEST_F(TestHandlerAdd, MultiMsg_Success) {
     it will return messages from the msgSequence vector until it is exhausted, 
     after which it will return a NO_MSG status to indicate there are no more messages to process. */
     g_callback_readNextMessage = [seq = msgSequence, index = 0]() mutable {
-        if (index < seq.size()) {
+        if (static_cast<size_t>(index) < seq.size()) {
             return seq[index++];
         }
         return Message_t{ 0, nullptr, NO_MSG }; // no more messages after the sequence
@@ -106,7 +106,7 @@ TEST_F(TestHandlerAdd, MultiMsg_Success) {
     /* this is the callback that will be called by the handler to report the result of an operation,
     it will compare the reported result with the expected result from the expectedResults vector. */
     g_callback_reportResult = [seq = expectedResults, index = 0](const char* operation, int result) mutable {
-        if (index < seq.size()) {
+        if (static_cast<size_t>(index) < seq.size()) {
             const auto& [expectedOperation, expectedResult] = seq[index++];
             EXPECT_STREQ(operation, expectedOperation) << "Operation mismatch at msgSequence[" << index - 1 << "]";
             EXPECT_EQ(result, expectedResult) << "Result mismatch at msgSequence[" << index - 1 << "]";

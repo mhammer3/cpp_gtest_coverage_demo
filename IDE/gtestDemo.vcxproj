@@ -130,7 +130,7 @@
   <ItemGroup>
     <ClCompile Include="..\googletest\googletest\src\gtest_main.cc" />
     <ClCompile Include="..\src\myHandler.c" />
-    <ClCompile Include="..\tests\test_BasicCalculations.cpp" />
+    <ClCompile Include="..\tests\test_myHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\externalComponents.h" />
