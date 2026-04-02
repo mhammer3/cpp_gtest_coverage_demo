@@ -91,8 +91,7 @@ TEST_F(TestHandlerAdd, MultiMsg_Success) {
     std::vector<std::tuple<const char*, int>> expectedResults;
     expectedResults.push_back(myExpectedOutput1);
     expectedResults.push_back(myExpectedOutput2);
-
-    
+        
 	/* this is the callback that will be called by the handler to read the next message, 
     it will return messages from the msgSequence vector until it is exhausted, 
     after which it will return a NO_MSG status to indicate there are no more messages to process. */

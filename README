@@ -1,0 +1,25 @@
+# GoogleTest + MinGW + CMake – Setup Guide
+
+Diese Anleitung erklärt Schritt für Schritt, wie du unter Windows mit **MSYS2** und **MinGW** ein vollständiges **GoogleTest‑Setup** einrichtest und C++‑Tests kompilierst und ausführst – ohne Visual Studio.
+
+---
+
+# ✅ Voraussetzungen
+
+- Windows 10/11  
+- Internetverbindung  
+- Basiskenntnisse in C/C++
+
+---
+
+# ✅ 1. MSYS2 installieren
+
+MSYS2 Download:  
+https://www.msys2.org
+
+1. Installer starten  
+2. Installation abschließen  
+3. MSYS2 öffnen und Paketdatenbank aktualisieren:
+
+```bash
+pacman -Syuu
