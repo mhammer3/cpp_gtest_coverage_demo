@@ -1,0 +1,116 @@
+# ---------------------------------------------------------
+# Visual Studio – User-spezifische Dateien
+# ---------------------------------------------------------
+.vs/
+*.user
+*.suo
+*.userosscache
+*.userprefs
+
+# ---------------------------------------------------------
+# Build-Ausgaben (VS, Ninja, MSBuild)
+# ---------------------------------------------------------
+Debug/
+Release/
+x64/
+x86/
+arm/
+arm64/
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+
+# Falls Out-of-source CMake build:
+build*/
+out*/
+
+# ---------------------------------------------------------
+# CMake generierte Dateien
+# ---------------------------------------------------------
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.ninja
+*.ninja_deps
+*.ninja_log
+
+# ---------------------------------------------------------
+# GoogleTest / FetchContent / External Build Artifacts
+# ---------------------------------------------------------
+googletest-download/
+googletest-src/
+googletest-build/
+
+# Wenn GTest über FetchContent:
+_build/
+*_build/
+external/
+
+# ---------------------------------------------------------
+# Compiler Artefakte
+# ---------------------------------------------------------
+*.obj
+*.o
+*.lo
+*.la
+*.slo
+*.pdb
+*.ilk
+*.idb
+*.idc
+
+# Static/Shared libs
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.so
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# ---------------------------------------------------------
+# Logs und temporäre Dateien
+# ---------------------------------------------------------
+*.log
+*.tlog
+
+# ---------------------------------------------------------
+# Code Coverage Dateien (gcov, llvm-cov, OpenCppCoverage)
+# ---------------------------------------------------------
+*.gcda
+*.gcno
+*.gcov
+coverage/
+coverage-report/
+cov-int/
+
+# ---------------------------------------------------------
+# Sonstige Tools
+# ---------------------------------------------------------
+*.ipch
+*.iobj
+*.ipdb
+*.rsp
+*.pch
+*.cache
+*.dat
+*.opendb
+*.VC.db
+*.VC.opendb
+
+# ---------------------------------------------------------
+# Editor-spezifisch
+# ---------------------------------------------------------
+# VS Code
+.vscode/
+
+# CLion / JetBrains
+.idea/
+*.iml
