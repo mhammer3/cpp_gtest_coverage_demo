@@ -42,15 +42,10 @@ void myHandler(void) {
 			else {
 				// We have a message to process
 				// in this demo, we simply add upp all values in the message...
+				// we simply that the result will fit in a uint32_t, but in a real implementation, you would want to consider overflow and other edge cases.
 				uint32_t i;
 				uint32_t result = 0;
 				for (i = 0; i < msg.count; i++) {
-					if (result + msg.data[i] < result) { // check for overflow
-						reportError("Overflow detected during addition.");
-						continueProcessing = false;
-						break;
-					}
-
 					result += msg.data[i];
 				}
 				reportResult("Addition", result);

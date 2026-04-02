@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(MyProject LANGUAGES CXX)
+project(MyProject LANGUAGES C CXX)
 
 #
 # --- Compiler Settings ---
@@ -37,7 +37,19 @@ add_library(gtest STATIC
 )
 target_include_directories(gtest PUBLIC
     ${GTEST_SOURCE_DIR}/include
+	${GTEST_SOURCE_DIR}
 )
+
+# gtest_main hinzufügen
+add_library(gtest_main STATIC
+    ${GTEST_SOURCE_DIR}/src/gtest_main.cc
+)
+
+target_link_libraries(gtest_main PUBLIC gtest)
+target_include_directories(gtest_main PUBLIC
+    ${GTEST_SOURCE_DIR}/include
+)
+
 
 # Optional: GoogleMock ebenfalls einbinden
 add_library(gmock STATIC
@@ -46,6 +58,7 @@ add_library(gmock STATIC
 target_link_libraries(gmock PUBLIC gtest)
 target_include_directories(gmock PUBLIC
     ${GMOCK_SOURCE_DIR}/include
+	${GMOCK_SOURCE_DIR}
     ${GTEST_SOURCE_DIR}/include
 )
 
@@ -54,7 +67,6 @@ target_include_directories(gmock PUBLIC
 #
 file(GLOB PROJECT_SOURCES CONFIGURE_DEPENDS
     src/*.c
-    src/*.cpp
 )
 add_library(core STATIC ${PROJECT_SOURCES})
 target_include_directories(core PUBLIC src)
@@ -63,13 +75,13 @@ target_include_directories(core PUBLIC src)
 # --- Tests ---
 #
 file(GLOB TEST_SOURCES CONFIGURE_DEPENDS tests/*.cpp)
+message("TEST_SOURCES = ${TEST_SOURCES}")
 add_executable(unit_tests ${TEST_SOURCES})
 
-target_link_libraries(unit_tests
-    PRIVATE
-        core
-        gtest
-        gtest_main
+target_link_libraries(unit_tests PRIVATE
+	core
+	gtest
+	gtest_main
 )
 
 enable_testing()
