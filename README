@@ -1,25 +1,370 @@
-# GoogleTest + MinGW + CMake – Setup Guide
+***
 
-Diese Anleitung erklärt Schritt für Schritt, wie du unter Windows mit **MSYS2** und **MinGW** ein vollständiges **GoogleTest‑Setup** einrichtest und C++‑Tests kompilierst und ausführst – ohne Visual Studio.
+# ✅ **README.md — GoogleTest + CMake + MinGW‑w64 (UCRT64) + Coverage Setup**
 
----
+Dieses Projekt zeigt, wie man unter Windows mit **MSYS2 UCRT64**, **MinGW‑w64**, **CMake**, **GoogleTest** und **gcovr** ein vollständiges C/C++‑Projekt baut, testet und einen Coverage‑Report erzeugt.
+Diese Anleitung wurde speziell dafür erstellt, **Probleme mit MinGW32, gtest‑Struktur, Coverage und PATH‑Konflikten zu vermeiden**.
 
-# ✅ Voraussetzungen
+***
 
-- Windows 10/11  
-- Internetverbindung  
-- Basiskenntnisse in C/C++
+# ✅ 1. Voraussetzungen
 
----
+*   **Windows 10/11**
+*   **MSYS2** (<https://www.msys2.org>)
+*   **MSYS2 UCRT64 Shell** (ganz wichtig!)
 
-# ✅ 1. MSYS2 installieren
+***
 
-MSYS2 Download:  
-https://www.msys2.org
+# ✅ 2. MSYS2 installieren & aktualisieren
 
-1. Installer starten  
-2. Installation abschließen  
-3. MSYS2 öffnen und Paketdatenbank aktualisieren:
+1.  MSYS2 herunterladen:  
+    <https://www.msys2.org>
+
+2.  MSYS2 öffnen (**MSYS** Shell, nicht MinGW)
+
+3.  Updaten:
 
 ```bash
 pacman -Syuu
+```
+
+MSYS2 kann sich schließen → Shell wieder öffnen und den Befehl erneut ausführen, bis keine Updates mehr nötig sind.
+
+***
+
+# ✅ 3. Die *richtige* Shell verwenden (UCRT64!)
+
+Starte:
+
+### ✅ **MSYS2 UCRT64**
+
+Prompt zeigt:
+
+    user@PC UCRT64 ~
+
+**Nicht verwenden:**  
+❌ MSYS  
+❌ MinGW32  
+❌ MinGW64  
+❌ CLANG64
+
+Nur **UCRT64** garantiert volle C++17‑Kompatibilität + funktionierende gtest‑Builds.
+
+***
+
+# ✅ 4. Compiler, CMake und Tools installieren (UCRT64‑Version)
+
+```bash
+pacman -S mingw-w64-ucrt-x86_64-gcc
+pacman -S mingw-w64-ucrt-x86_64-cmake
+pacman -S mingw-w64-ucrt-x86_64-make
+
+
+Test:
+
+```bash
+which g++
+which cmake
+```
+
+Beides muss auf `/ucrt64/bin/...` zeigen.
+
+***
+
+# ✅ 5. GoogleTest lokal im Projekt verwenden
+
+Dieses Projekt enthält den Ordner:
+
+    googletest/
+        googletest/
+            include/
+            src/
+        googlemock/
+            include/
+            src/
+
+Dieser Ordner stammt aus:
+
+    googletest-release-1.17.0.zip
+
+Lade GoogleTest NICHT über pacman, NICHT über FetchContent — **dieses Projekt baut gtest lokal**.
+
+***
+
+# ✅ 6. Coverage Tool installieren (gcovr)
+
+Unter UCRT64:
+
+```bash
+pacman -S mingw-w64-ucrt-x86_64-gcovr
+```
+
+Test:
+
+```bash
+gcovr --version
+```
+
+***
+
+# ✅ 7. Projektstruktur
+
+    cpp_gtest_coverage_demo/
+    │
+    ├── src/                  # C-Code
+    ├── tests/                # C++ GTest-Dateien
+    ├── googletest/           # Lokale GoogleTest/GoogleMock-Quelle
+    │
+    ├── build/                # wird automatisch erzeugt
+    │
+    ├── all.sh                # baut + testet + Coverage
+    ├── build.sh              # nur Build
+    ├── run_tests.sh          # nur Tests
+    ├── coverage.sh           # nur Coverage
+    │
+    └── CMakeLists.txt
+
+***
+
+# ✅ 8. Build ausführen
+
+```bash
+./all.sh
+```
+
+Oder einzeln:
+
+```bash
+./build.sh
+./run_tests.sh
+./coverage.sh
+```
+
+***
+
+# ✅ 9. Coverage-Report öffnen
+
+```bash
+explorer.exe build/coverage.html
+```
+
+***
+
+# ✅ Fertig!
+
+
+
+### Debugging in Visual Studio Code
+so dass 
+✅ deine Unit‑Tests (`unit_tests.exe`) aus VSCode gestartet werden  
+✅ du **Breakpoints** setzen kannst  
+✅ du Schritt‑für‑Schritt durch deinen C‑ und C++‑Code debuggen kannst  
+✅ alles mit **MSYS2 UCRT64 + MinGW‑w64** funktioniert
+
+Und das **ohne Chaos im PATH**, **ohne gdb‑Fehler** und **ohne MSVC**.
+
+***
+
+# ✅ 1. Voraussetzungen
+
+Du benötigst:
+
+### ✅ In MSYS2 UCRT64 Shell installiert:
+
+    pacman -S mingw-w64-ucrt-x86_64-gcc
+    pacman -S mingw-w64-ucrt-x86_64-gdb
+    pacman -S mingw-w64-ucrt-x86_64-cmake
+
+Testen:
+
+```bash
+which gdb
+/usr/bin/gdb  ❌ Falsch
+/ucrt64/bin/gdb ✅ Richtige Version
+```
+
+***
+
+# ✅ 2. VSCode Extensions installieren
+
+In VSCode:
+
+### ✅ 1. **C/C++ Extension**
+
+(ms-vscode.cpptools)
+
+### ✅ 2. **CMake Tools**
+
+(ms-vscode.cmake-tools)
+
+### ✅ 3. Optional: Test Explorer UI
+
+Wenn du Test-Erkennung willst.
+
+***
+
+# ✅ 3. Projekt in VSCode öffnen
+
+Im Terminal:
+
+```bash
+code .
+```
+
+oder per Explorer.
+
+***
+
+# ✅ 4. VSCode für MinGW‑w64 konfigurieren
+
+Du musst VSCode sagen, **welchen Compiler und GDB** es benutzen soll.
+
+Erstelle Ordner:
+
+    .vscode/
+
+***
+
+# ✅ 5. Datei: `.vscode/c_cpp_properties.json`
+
+```json
+{
+    "configurations": [
+        {
+            "name": "MinGW UCRT64",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/googletest/googletest/include",
+                "${workspaceFolder}/googletest/googlemock/include"
+            ],
+            "defines": [],
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}
+```
+
+Wichtig:  
+✅ `compilerPath` zeigt auf **ucrt64/bin/g++.exe**  
+❌ NICHT auf mingw32
+
+***
+
+# ✅ 6. Datei: `.vscode/launch.json` (Debuggen der Tests)
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug unit_tests.exe",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/unit_tests.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+            "setupCommands": [
+                { "text": "-gdb-set breakpoint pending on" }
+            ]
+        }
+    ]
+}
+```
+
+Wichtig:
+
+✅ `program` zeigt auf *unit\_tests.exe*  
+✅ `miDebuggerPath` zeigt auf **ucrt64 gdb**  
+✅ funktioniert mit Breakpoints in C und C++
+
+***
+
+# ✅ 7. Datei: `.vscode/tasks.json` (Build über VSCode)
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "build"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}
+```
+
+***
+
+# ✅ 8. Build per VSCode (CMake Tools)
+
+Links unten siehst du die **Statusbar von CMake Tools**:
+
+*   ✅ Kit auswählen → **GCC 64‑bit (ucrt64)** auswählen
+*   ✅ "Configure" drücken
+*   ✅ "Build" drücken
+
+VSCode baut jetzt `unit_tests.exe`.
+
+***
+
+# ✅ 9. Test Debuggen
+
+Jetzt kannst du:
+
+1.  In VSCode links "Run & Debug" öffnen
+2.  Konfiguration **Debug unit\_tests.exe** auswählen
+3.  Breakpoint in deiner C‑ oder C++‑Datei setzen
+4.  ▶️ Debugger starten
+
+→ Es wird **unit\_tests.exe** gestartet → GTest registriert alle Tests →  
+→ Dein Breakpoint wird korrekt getroffen ✅
+
+***
+
+# ✅ 10. Typische Fehler & Lösungen
+
+### ❌ VSCode trifft Breakpoints nicht
+
+✅ Lösung: Build unbedingt im Debug-Modus:
+
+    cmake -DCMAKE_BUILD_TYPE=Debug
+
+### ❌ "Unable to start debugging: gdb not found"
+
+✅ miDebuggerPath prüfen → muss sein:
+
+    C:/msys64/ucrt64/bin/gdb.exe
+
+### ❌ “No such file or directory” beim Start
+
+✅ `program` Pfad in launch.json prüfen
+
+### ❌ VSCode nutzt falschen Compiler
+
+✅ In c\_cpp\_properties: `compilerPath` anpassen
+
+***
+
+# ✅ Willst du auch:
+
+✅ Test-Explorer-Unterstützung in VSCode?  
+✅ Auto-Reload beim Code‑Ändern?  
+✅ Coverage‑Report direkt in VSCode anzeigen?  
+✅ Ein Script zum Starten von Debug+Tests?
+
+Sag einfach Bescheid — ich richte es dir ein!
