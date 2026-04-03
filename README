@@ -109,6 +109,9 @@ gcovr --version
 
 # ✅ 7. Projektstruktur
 
+git clone --recurse-submodules https://github.com/mhammer3/cpp_gtest_coverage_demo.git
+
+
     cpp_gtest_coverage_demo/
     │
     ├── src/                  # C-Code
