@@ -184,7 +184,7 @@ Or step-by-step:
 # ✅ 9. Open Coverage Report
 
 ```bash
-explorer.exe build/coverage.html
+explorer.exe coverage/coverage.html
 ```
 
 ---
