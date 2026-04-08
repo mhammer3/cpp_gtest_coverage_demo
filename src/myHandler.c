@@ -1,6 +1,6 @@
 
 #include "myHandler.h"
-#include "externalComponents.h"
+#include "externalAPIs.h"
 
 /*
 	this function is a simple handler that reads messages containing numbers to be added together, processes them, and reports the result. 

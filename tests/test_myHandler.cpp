@@ -3,7 +3,7 @@
 
 extern "C" {
 #include "myHandler.h"
-#include "externalComponents.h"
+#include "externalAPIs.h"
 }
 
 static std::function<void(const char* operation, int result)> g_callback_reportResult;
