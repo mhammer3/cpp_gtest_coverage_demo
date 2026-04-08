@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🛠 Entferne altes build-Verzeichnis..."
+echo "🛠 Remove old build directory..."
 rm -rf build
 
-echo "🔧 Erzeuge CMake Build (Debug + Coverage)..."
+echo "🔧 Generate CMake Build (Debug + Coverage)..."
 cmake -G "MinGW Makefiles" -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
 
-echo "📦 Baue das Projekt..."
+echo "📦 Build the project..."
 cmake --build build
 
-echo "✅ Build erfolgreich!"
+echo "✅ Build successful!"

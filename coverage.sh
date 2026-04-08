@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 set -e
 
-echo "📊 Erzeuge Coverage-Report..."
+echo "📊 Generate Coverage-Report..."
 
+rm -rf coverage
+mkdir coverage
 gcovr \
-    --root "$(pwd)" \
-    --object-directory "$(pwd)/build" \
-    --filter "$(pwd)/src" \
-    --exclude "$(pwd)/tests" \
-    --exclude "$(pwd)/googletest" \
+    -r . \
+    --object-directory build \
+    --filter "src" \
+    --exclude "tests" \
+    --exclude "googletest" \
     --html --html-details \
-    -o build/coverage.html
+    -o coverage/coverage.html
 
-echo "✅ Coverage-Report erstellt: build/coverage.html"
+echo "✅ Coverage-Report generated: coverage/coverage.html"

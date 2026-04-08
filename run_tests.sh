@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "▶️  Führe Unit-Tests aus..."
+echo "▶️  Execute Unit-Tests..."
 ctest --test-dir build --output-on-failure
 
-echo "✅ Tests abgeschlossen!"
-``
+echo "✅ Tests completed!"

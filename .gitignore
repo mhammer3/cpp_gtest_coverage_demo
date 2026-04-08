@@ -112,3 +112,5 @@ cov-int/
 # CLion / JetBrains
 .idea/
 *.iml
+clang-tidy/clang-tidy-report.txt
+clang-tidy/fixes.yaml

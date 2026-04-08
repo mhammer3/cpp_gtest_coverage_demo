@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🧹 Remove old build-Directory..."
+echo "🧹 Remove old build-Directories..."
 rm -rf build
 rm -rf coverage
 rm -rf clang-tidy
