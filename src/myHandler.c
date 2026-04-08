@@ -44,7 +44,7 @@ void myHandler(void) {
 				// in this demo, we simply add upp all values in the message...
 				// we simply that the result will fit in a uint32_t, but in a real implementation, you would want to consider overflow and other edge cases.
 				uint32_t i;
-				uint32_t result = 0;
+				uint32_t result = 0; // using "uint32_t" although "int32_t" would be correct, is intended to demonstrate clang-tidy results.
 				for (i = 0; i < msg.count; i++) {
 					result += msg.data[i];
 				}

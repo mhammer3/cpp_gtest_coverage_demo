@@ -187,6 +187,23 @@ Or step-by-step:
 explorer.exe coverage/coverage.html
 ```
 
+# ✅ 10. Clang Tidy Installation
+```bash
+pacman -S mingw-w64-ucrt-x86_64-clang \
+          mingw-w64-ucrt-x86_64-clang-tools-extra
+```
+---
+
+# ✅ 11. Analyze with Clang Tidy 
+```bash
+./analyze_clang_tidy.sh
+```
+
+or 
+```bash
+./all.sh
+```
+
 ---
 
 # ✅ Done!

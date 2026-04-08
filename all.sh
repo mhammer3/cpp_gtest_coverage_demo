@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🧹 Entferne altes build-Verzeichnis..."
+echo "🧹 Remove old build-Directory..."
 rm -rf build
 rm -rf coverage
+rm -rf clang-tidy
 
-echo "🔧 Starte CMake-Konfiguration (Debug + Coverage)..."
-cmake -G "MinGW Makefiles" -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+echo "🔧 Start CMake-Configuration (Debug + Coverage)..."
+cmake -G "MinGW Makefiles" -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
 
-echo "🛠 Baue das Projekt..."
+echo "🛠 Build project..."
 cmake --build build
 
-echo "▶️ Führe Unit-Tests aus..."
+echo "▶️ Execute Unit-Tests ..."
 ctest --test-dir build --output-on-failure
 
 echo "📊 Erzeuge Coverage-Report..."
@@ -25,5 +26,15 @@ gcovr \
     --html --html-details \
     -o coverage/coverage.html
 
-echo "✅ Fertig!"
-echo "👉 Coverage-Datei:coverage/coverage.html"
+echo "🔍 Run clang-tidy"
+mkdir -p clang-tidy
+clang-tidy src/*.c \
+    -p build \
+    -checks=clang-analyzer-*,bugprone-*,performance-* \
+    -header-filter='^./src/.*' \
+    -export-fixes=clang-tidy/fixes.yaml \
+    > clang-tidy/clang-tidy-report.txt
+
+echo "✅ Complete!"
+echo "👉 Coverage-Report:coverage/coverage.html"
+echo "👉 Clang-tidy-Report:clang-tidy/clang-tidy-report.txt"

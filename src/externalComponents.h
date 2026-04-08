@@ -10,8 +10,8 @@ typedef enum {
 } MessageStatus_t;
 
 typedef struct {
-	uint32_t count;
-	uint8_t* data;
+	size_t count;
+	int8_t* data;
 	MessageStatus_t status;
 } Message_t;
 

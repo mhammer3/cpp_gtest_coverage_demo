@@ -58,7 +58,7 @@ TEST_F(TestHandlerAdd, SingleMsg_Success) {
     After this message is processed, the callback will return a NO_MSG status to indicate there are no more messages to process. */
     std::vector<Message_t> msgSequence;
     {
-        uint8_t data[] = { 3, 5 };
+        int8_t data[] = { 3, 5 };
         msgSequence.push_back({ sizeof(data) / sizeof(*data), data, MSG_AVAILABLE });
     }
 
@@ -77,9 +77,9 @@ TEST_F(TestHandlerAdd, SingleMsg_Success) {
 TEST_F(TestHandlerAdd, MultiMsg_Success) {
 
 	// set the input messages for the handler to process and the expected results for the handler to report
-    static std::vector<uint8_t> myInput1 = { 3, 5 };
+    static std::vector<int8_t> myInput1 = { 3, 5 };
     static std::tuple<const char*, int> myExpectedOutput1 = std::make_tuple("Addition", 8);
-    static std::vector<uint8_t> myInput2 = { 1, 2, 3 };
+    static std::vector<int8_t> myInput2 = { 1, 2, 3 };
     static std::tuple<const char*, int> myExpectedOutput2 = std::make_tuple("Addition", 6);
 
 	// msg sequence for the handler to process
@@ -140,7 +140,7 @@ TEST_F(TestHandlerAdd, SingleMsg_InvalidInput) {
     After this message is processed, the callback will return a NO_MSG status to indicate there are no more messages to process. */
     std::vector<Message_t> msgSequence;
     {
-        uint8_t data[] = { 3, 5 };
+        int8_t data[] = { 3, 5 };
         msgSequence.push_back({ 0, data, MSG_AVAILABLE }); // this is an invalid message because the count is 0, which should trigger an error report from the handler.
     }
 
